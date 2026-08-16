@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: orchestration-app
+  namespace: default
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/roua2288/orchestration-microservices-.git
+    targetRevision: main
+    path: orchestration-app
+    helm:
+      releaseName: orchestration-app
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
