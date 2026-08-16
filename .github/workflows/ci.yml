@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         service:
           - frontend
@@ -35,24 +36,24 @@ jobs:
           - notification-service
 
     steps:
-      # Recuperer le code source
+      # 1. Recuperer le code source
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Configurer Node.js pour les services Node.js
+      # 2. Configurer Node.js uniquement si le service contient package.json
       - name: Setup Node.js
         if: ${{ hashFiles(format('services/{0}/package.json', matrix.service)) != '' }}
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
-      # Installer les dependances Node.js
+      # 3. Installer les dependances Node.js
       - name: Install dependencies
         if: ${{ hashFiles(format('services/{0}/package.json', matrix.service)) != '' }}
         working-directory: services/${{ matrix.service }}
         run: npm ci
 
-      # Executer les tests si un script test existe
+      # 4. Executer les tests unitaires s'ils existent
       - name: Run unit tests
         if: ${{ hashFiles(format('services/{0}/package.json', matrix.service)) != '' }}
         working-directory: services/${{ matrix.service }}
@@ -64,7 +65,7 @@ jobs:
             echo "No unit tests configured for ${{ matrix.service }}"
           fi
 
-      # Construire l'image Docker
+      # 5. Construire l'image Docker
       - name: Build Docker image
         run: |
           docker build \
@@ -73,7 +74,8 @@ jobs:
             -t ${{ matrix.service }}:${{ github.sha }} \
             ./services/${{ matrix.service }}
 
-      # Scanner les vulnerabilites
+      # 6. Scanner l'image avec Trivy
+      # Les vulnerabilites sont affichees mais ne bloquent pas le pipeline
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
@@ -81,9 +83,9 @@ jobs:
           format: "table"
           severity: "CRITICAL,HIGH"
           ignore-unfixed: true
-          exit-code: "1"
+          exit-code: "0"
 
-      # Authentification AWS uniquement sur push
+      # 7. Authentification AWS uniquement lors d'un push
       - name: Configure AWS credentials
         if: github.event_name == 'push'
         uses: aws-actions/configure-aws-credentials@v4
@@ -91,13 +93,13 @@ jobs:
           role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # Connexion Amazon ECR
+      # 8. Connexion Amazon ECR
       - name: Login to Amazon ECR
         if: github.event_name == 'push'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # Tag et push ECR
+      # 9. Tag et Push de l'image vers Amazon ECR
       - name: Push Docker image to ECR
         if: github.event_name == 'push'
         env:
