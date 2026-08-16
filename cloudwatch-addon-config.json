@@ -1,0 +1,9 @@
+{
+  "manager": {
+    "applicationSignals": {
+      "autoMonitor": {
+        "monitorAllServices": false
+      }
+    }
+  }
+}

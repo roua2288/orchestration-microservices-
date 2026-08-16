@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster-autoscaler
+  namespace: kube-system
+  labels:
+    app: cluster-autoscaler
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: cluster-autoscaler
+
+  template:
+    metadata:
+      labels:
+        app: cluster-autoscaler
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+
+    spec:
+      serviceAccountName: cluster-autoscaler
+
+      containers:
+        - name: cluster-autoscaler
+          image: registry.k8s.io/autoscaling/cluster-autoscaler:v1.35.0
+
+          command:
+            - ./cluster-autoscaler
+            - --cloud-provider=aws
+            - --namespace=kube-system
+            - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/orchestration-eks
+            - --balance-similar-node-groups
+            - --skip-nodes-with-system-pods=false
+            - --skip-nodes-with-local-storage=false
+            - --expander=least-waste
+            - --stderrthreshold=info
+            - --v=4
+
+          env:
+            - name: AWS_REGION
+              value: eu-west-3
+
+            - name: AWS_DEFAULT_REGION
+              value: eu-west-3
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 200m
+              memory: 600Mi
+
+      priorityClassName: system-cluster-critical

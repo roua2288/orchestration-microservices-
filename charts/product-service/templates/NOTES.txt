@@ -1,0 +1,12 @@
+﻿Le microservice product-service a été installé avec succès.
+
+Vérification :
+
+  kubectl get deployment product-service -n {{ .Release.Namespace }}
+
+  kubectl get pods -n {{ .Release.Namespace }} 
+    -l app.kubernetes.io/name=product-service
+
+  kubectl get service product-service -n {{ .Release.Namespace }}
+
+  kubectl get hpa product-service -n {{ .Release.Namespace }}

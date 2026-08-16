@@ -1,0 +1,24 @@
+dependencies:
+- name: frontend
+  repository: file://../charts/frontend
+  version: 0.1.0
+- name: backend
+  repository: file://../charts/backend
+  version: 0.1.0
+- name: user-service
+  repository: file://../charts/user-service
+  version: 0.1.0
+- name: product-service
+  repository: file://../charts/product-service
+  version: 0.1.0
+- name: order-service
+  repository: file://../charts/order-service
+  version: 0.1.0
+- name: payment-service
+  repository: file://../charts/payment-service
+  version: 0.1.0
+- name: notification-service
+  repository: file://../charts/notification-service
+  version: 0.1.0
+digest: sha256:f76b1cba7f6b2bb030d96853e70b431ac726c69379a65ff1a144019f88170cd0
+generated: "2026-08-02T21:57:29.3409639+01:00"

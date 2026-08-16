@@ -1,0 +1,332 @@
+﻿# ============================================================
+# Configuration globale - environnement DEV
+# ============================================================
+
+global:
+  # Environnement de déploiement
+  environment: dev
+
+  # Région AWS utilisée
+  awsRegion: eu-west-3
+
+  # Tag Docker global par défaut
+  imageTag: v3
+
+  # Politique de récupération des images
+  imagePullPolicy: IfNotPresent
+
+
+# ============================================================
+# Frontend
+# ============================================================
+
+frontend:
+  # Active le frontend
+  enabled: true
+
+  # Nombre de pods frontend
+  replicaCount: 1
+
+  # Version de l'image Docker
+  image:
+    tag: v4
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  # Autoscaling désactivé en DEV
+  autoscaling:
+    enabled: false
+
+  # Déploie le frontend sur les nœuds non critiques / Spot
+  nodeSelector:
+    role: non-critical
+
+  # Variables de configuration
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug
+
+  # Variables sensibles de démonstration
+  secret:
+    enabled: true
+    stringData:
+      DEMO_USERNAME: dev-user
+      DEMO_PASSWORD: dev-password
+
+
+# ============================================================
+# Backend
+# ============================================================
+
+backend:
+  # Active le backend
+  enabled: true
+
+  # Nombre de pods backend
+  replicaCount: 1
+
+  # Version de l'image Docker
+  image:
+    tag: v6
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+
+  # Autoscaling désactivé
+  autoscaling:
+    enabled: false
+
+  # Configuration de l'application
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug
+
+
+# ============================================================
+# User Service
+# ============================================================
+
+user-service:
+  # Active le service utilisateur
+  enabled: true
+
+  # Nombre initial de pods
+  replicaCount: 2
+
+  # Version de l'image Docker
+  image:
+    tag: v3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+  # Configuration de l'application
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug
+
+
+# ============================================================
+# Product Service
+# ============================================================
+
+product-service:
+  # Active le service produit
+  enabled: true
+
+  # Nombre de pods
+  replicaCount: 1
+
+  # Version de l'image Docker
+  image:
+    tag: v3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  # Autoscaling désactivé
+  autoscaling:
+    enabled: false
+
+  # Déploiement sur les nœuds Spot non critiques
+  nodeSelector:
+    role: non-critical
+
+  # Configuration applicative
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug
+
+
+# ============================================================
+# Order Service
+# ============================================================
+
+order-service:
+  # Active le service de commande
+  enabled: true
+
+  # Nombre de pods
+  replicaCount: 1
+
+  # Version de l'image Docker
+  image:
+    tag: v3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  # Autoscaling désactivé
+  autoscaling:
+    enabled: false
+
+  # Configuration applicative
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug
+
+
+# ============================================================
+# Payment Service
+# ============================================================
+
+payment-service:
+  # Active le service de paiement
+  enabled: true
+
+  # Nombre de pods
+  replicaCount: 1
+
+  # Version de l'image Docker
+  image:
+    tag: v3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  # Autoscaling désactivé
+  autoscaling:
+    enabled: false
+
+  # Configuration applicative
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug
+
+
+# ============================================================
+# Notification Service
+# ============================================================
+
+notification-service:
+  # Active le service de notification
+  enabled: true
+
+  # Nombre de pods
+  replicaCount: 1
+
+  # Version de l'image Docker
+  image:
+    tag: v3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  # Autoscaling désactivé
+  autoscaling:
+    enabled: false
+
+  # Déploiement sur les nœuds Spot non critiques
+  nodeSelector:
+    role: non-critical
+
+  # Configuration applicative
+  configMap:
+    enabled: true
+    data:
+      APP_ENV: dev
+      LOG_LEVEL: debug

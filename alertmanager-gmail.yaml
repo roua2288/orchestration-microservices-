@@ -1,0 +1,37 @@
+﻿global:
+  resolve_timeout: 5m
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'rouabenamor228@gmail.com'
+  smtp_auth_username: 'rouabenamor228@gmail.com'
+  smtp_auth_password: 'nyyh ksyx ncon ible'
+  smtp_require_tls: true
+
+route:
+  receiver: "null"
+  group_by:
+    - alertname
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+
+  routes:
+    - matchers:
+        - alertname =~ "PodCrashLoop|HighCPUUsage|HighMemoryUsage|HighLatency|HTTP5xxErrors|TestEmailAlert"
+      receiver: "email-notifications"
+
+    - matchers:
+        - alertname = "Watchdog"
+      receiver: "null"
+
+receivers:
+  - name: "null"
+
+  - name: 'email-notifications'
+    email_configs:
+      - to: 'rouabenamor228@gmail.com'
+        send_resolved: true
+        headers:
+          subject: '[EKS Alert] {{ .CommonLabels.alertname }}'
+
+templates:
+  - '/etc/alertmanager/config/*.tmpl'

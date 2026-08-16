@@ -1,0 +1,145 @@
+﻿# Number of frontend replicas
+replicaCount: 2
+
+# Docker image configuration
+image:
+  # ECR repository
+  repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/frontend"
+
+  # Image pull policy
+  pullPolicy: IfNotPresent
+
+  # Docker image version
+  tag: "v3"
+
+# Image pull secrets
+imagePullSecrets: []
+
+# Override chart name
+nameOverride: ""
+
+# Override full resource name
+fullnameOverride: ""
+
+# ServiceAccount configuration
+serviceAccount:
+  # Create a ServiceAccount
+  create: true
+
+  # Mount ServiceAccount token
+  automount: true
+
+  # Additional annotations
+  annotations: {}
+
+  # Custom ServiceAccount name
+  name: ""
+
+# Pod annotations
+podAnnotations: {}
+
+# Pod labels
+podLabels: {}
+
+# Pod security settings
+podSecurityContext:
+  runAsNonRoot: false
+
+# Container security settings
+securityContext: {}
+
+# Kubernetes Service configuration
+service:
+  # Service type
+  type: ClusterIP
+
+  # Service port
+  port: 80
+
+  # Container port
+  targetPort: 80
+
+# Application configuration
+configMap:
+  enabled: true
+  data:
+    APP_NAME: "frontend"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Sensitive configuration
+secret:
+  enabled: true
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Health checks
+probes:
+  startup:
+    enabled: true
+    path: /
+    initialDelaySeconds: 0
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 30
+
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# CPU and memory resources
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+# Horizontal Pod Autoscaler
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+# Ingress configuration
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: "frontend.local"
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+# Additional volumes
+volumes: []
+
+# Volume mounts
+volumeMounts: []
+
+# Node selection
+nodeSelector: {}
+
+# Node tolerations
+tolerations: []
+
+# Affinity rules
+affinity: {}

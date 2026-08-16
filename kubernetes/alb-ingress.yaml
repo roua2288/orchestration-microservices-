@@ -1,0 +1,91 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: orchestration-alb-ingress
+  namespace: microservices
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/success-codes: "200-399"
+    alb.ingress.kubernetes.io/load-balancer-name: orchestration-alb
+
+    alb.ingress.kubernetes.io/transforms.orchestration-app-backend: >
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^\\/api(?:\\/.*)?$","replace":"/"}]}}]
+
+    alb.ingress.kubernetes.io/transforms.orchestration-app-user-service: >
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^\\/users(?:\\/.*)?$","replace":"/"}]}}]
+
+    alb.ingress.kubernetes.io/transforms.orchestration-app-product-service: >
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^\\/products(?:\\/.*)?$","replace":"/"}]}}]
+
+    alb.ingress.kubernetes.io/transforms.orchestration-app-order-service: >
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^\\/orders(?:\\/.*)?$","replace":"/"}]}}]
+
+    alb.ingress.kubernetes.io/transforms.orchestration-app-payment-service: >
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^\\/payments(?:\\/.*)?$","replace":"/"}]}}]
+
+    alb.ingress.kubernetes.io/transforms.orchestration-app-notification-service: >
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^\\/notifications(?:\\/.*)?$","replace":"/"}]}}]
+
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-backend
+                port:
+                  number: 80
+
+          - path: /users
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-user-service
+                port:
+                  number: 80
+
+          - path: /products
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-product-service
+                port:
+                  number: 80
+
+          - path: /orders
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-order-service
+                port:
+                  number: 80
+
+          - path: /payments
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-payment-service
+                port:
+                  number: 80
+
+          - path: /notifications
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-notification-service
+                port:
+                  number: 80
+
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orchestration-app-frontend
+                port:
+                  number: 80

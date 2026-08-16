@@ -1,0 +1,608 @@
+﻿# ============================================================
+# Valeurs globales partagees
+# ============================================================
+
+global:
+  # Environnement de deploiement
+  environment: dev
+
+  # Region AWS utilisee
+  awsRegion: "eu-west-3"
+
+  # Registre Amazon ECR commun aux images
+  imageRegistry: "136609826386.dkr.ecr.eu-west-3.amazonaws.com"
+
+  # Tag Docker par defaut
+  imageTag: "v3"
+
+  # Politique de recuperation des images
+  imagePullPolicy: IfNotPresent
+
+
+# ============================================================
+# Frontend
+# ============================================================
+
+frontend:
+  # Active le microservice frontend
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Configuration de l'image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/frontend"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Configuration Ingress
+  ingress:
+    enabled: false
+    className: ""
+    annotations: {}
+    hosts:
+      - host: frontend.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+
+  # Ressources CPU et memoire
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling horizontal
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+
+# Configuration applicative
+configMap:
+  # Active la creation du ConfigMap
+  enabled: true
+
+  # Variables d'environnement
+  data:
+    APP_NAME: "frontend"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Configuration sensible
+secret:
+  # Active la creation du Secret
+  enabled: true
+
+  # Identifiants de demonstration
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Probes Kubernetes
+probes:
+  # Verification que l'application reste fonctionnelle
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  # Verification que l'application peut recevoir du trafic
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Parametres de securite du conteneur
+securityContext: {}
+
+
+# ============================================================
+# Backend
+# ============================================================
+
+backend:
+  # Active le microservice backend
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Configuration de l'image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/backend"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ingress du backend
+  ingress:
+    enabled: false
+
+  # Ressources CPU et memoire
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling du backend
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+
+# Configuration applicative
+configMap:
+  enabled: true
+  data:
+    APP_NAME: "backend"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Configuration sensible
+secret:
+  enabled: true
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Probes Kubernetes
+probes:
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Parametres de securite
+securityContext: {}
+
+
+# ============================================================
+# User Service
+# ============================================================
+
+user-service:
+  # Active le microservice utilisateur
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Configuration de l'image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/user-service"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ingress du service
+  ingress:
+    enabled: false
+
+  # Ressources CPU et memoire
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling horizontal
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+
+# Configuration applicative
+configMap:
+  enabled: true
+  data:
+    APP_NAME: "user-service"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Configuration sensible
+secret:
+  enabled: true
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Probes Kubernetes
+probes:
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Parametres de securite
+securityContext: {}
+
+
+# ============================================================
+# Product Service
+# ============================================================
+
+product-service:
+  # Active le service produit
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/product-service"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ingress
+  ingress:
+    enabled: false
+
+  # Ressources
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+
+# Configuration applicative
+configMap:
+  enabled: true
+  data:
+    APP_NAME: "product-service"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Secrets applicatifs
+secret:
+  enabled: true
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Probes Kubernetes
+probes:
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Parametres de securite
+securityContext: {}
+
+
+# ============================================================
+# Order Service
+# ============================================================
+
+order-service:
+  # Active le service commande
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/order-service"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ingress
+  ingress:
+    enabled: false
+
+  # Ressources
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+
+# Configuration applicative
+configMap:
+  enabled: true
+  data:
+    APP_NAME: "order-service"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Configuration sensible
+secret:
+  enabled: true
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Probes Kubernetes
+probes:
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Parametres de securite
+securityContext: {}
+
+
+# ============================================================
+# Payment Service
+# ============================================================
+
+payment-service:
+  # Active le service paiement
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/payment-service"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ingress
+  ingress:
+    enabled: false
+
+  # Ressources CPU et memoire
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+
+# Configuration applicative
+configMap:
+  enabled: true
+  data:
+    APP_NAME: "payment-service"
+    APP_ENV: "dev"
+    AWS_REGION: "eu-west-3"
+    LOG_LEVEL: "info"
+
+# Configuration sensible
+secret:
+  enabled: true
+  stringData:
+    DEMO_USERNAME: "microservice-user"
+    DEMO_PASSWORD: "change-me"
+
+# Probes Kubernetes
+probes:
+  liveness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+  readiness:
+    enabled: true
+    path: /
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Parametres de securite
+securityContext: {}
+
+
+# ============================================================
+# Notification Service
+# ============================================================
+
+notification-service:
+  # Active le service de notification
+  enabled: true
+
+  # Nombre de replicas
+  replicaCount: 2
+
+  # Image Docker
+  image:
+    repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/notification-service"
+    pullPolicy: IfNotPresent
+    tag: "v3"
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ingress
+  ingress:
+    enabled: false
+
+  # Ressources CPU et memoire
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Autoscaling
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 70
+
+  # Configuration applicative
+  configMap:
+    enabled: true
+    data:
+      APP_NAME: "notification-service"
+      APP_ENV: "dev"
+      AWS_REGION: "eu-west-3"
+      LOG_LEVEL: "info"
+
+  # Configuration sensible
+  secret:
+    enabled: true
+    stringData:
+      DEMO_USERNAME: "microservice-user"
+      DEMO_PASSWORD: "change-me"
+
+  # Probes Kubernetes
+  probes:
+    liveness:
+      enabled: true
+      path: /
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 3
+      failureThreshold: 3
+
+    readiness:
+      enabled: true
+      path: /
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 3
+      failureThreshold: 3
+
+  # Parametres de securite
+  securityContext: {}

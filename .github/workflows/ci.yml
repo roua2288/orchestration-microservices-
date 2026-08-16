@@ -1,0 +1,112 @@
+name: CI - Build Test Scan Push
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: eu-west-3
+  AWS_ACCOUNT_ID: "136609826386"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - frontend
+          - backend
+          - user-service
+          - product-service
+          - order-service
+          - payment-service
+          - notification-service
+
+    steps:
+      # Recuperer le code source
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurer Node.js pour les services Node.js
+      - name: Setup Node.js
+        if: ${{ hashFiles(format('services/{0}/package.json', matrix.service)) != '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Installer les dependances Node.js
+      - name: Install dependencies
+        if: ${{ hashFiles(format('services/{0}/package.json', matrix.service)) != '' }}
+        working-directory: services/${{ matrix.service }}
+        run: npm ci
+
+      # Executer les tests si un script test existe
+      - name: Run unit tests
+        if: ${{ hashFiles(format('services/{0}/package.json', matrix.service)) != '' }}
+        working-directory: services/${{ matrix.service }}
+        shell: bash
+        run: |
+          if npm run | grep -q " test"; then
+            npm test
+          else
+            echo "No unit tests configured for ${{ matrix.service }}"
+          fi
+
+      # Construire l'image Docker
+      - name: Build Docker image
+        run: |
+          docker build \
+            --provenance=false \
+            --sbom=false \
+            -t ${{ matrix.service }}:${{ github.sha }} \
+            ./services/${{ matrix.service }}
+
+      # Scanner les vulnerabilites
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "${{ matrix.service }}:${{ github.sha }}"
+          format: "table"
+          severity: "CRITICAL,HIGH"
+          ignore-unfixed: true
+          exit-code: "1"
+
+      # Authentification AWS uniquement sur push
+      - name: Configure AWS credentials
+        if: github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Connexion Amazon ECR
+      - name: Login to Amazon ECR
+        if: github.event_name == 'push'
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # Tag et push ECR
+      - name: Push Docker image to ECR
+        if: github.event_name == 'push'
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker tag \
+            ${{ matrix.service }}:${IMAGE_TAG} \
+            ${ECR_REGISTRY}/${{ matrix.service }}:${IMAGE_TAG}
+
+          docker push \
+            ${ECR_REGISTRY}/${{ matrix.service }}:${IMAGE_TAG}

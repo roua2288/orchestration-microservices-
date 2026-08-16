@@ -1,0 +1,64 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+
+metadata:
+  name: microservices-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring
+
+spec:
+  groups:
+    - name: microservices.rules
+
+      rules:
+        - alert: PodCrashLoop
+          expr: kube_pod_container_status_waiting_reason{namespace="microservices",reason="CrashLoopBackOff"} > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod en CrashLoopBackOff"
+            description: "Un pod du namespace microservices est en CrashLoopBackOff."
+
+        - alert: HighCPUUsage
+          expr: sum by (pod) (rate(container_cpu_usage_seconds_total{namespace="microservices",container!="",pod!=""}[5m])) > 0.2
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Utilisation CPU elevee"
+            description: "Un pod du namespace microservices depasse le seuil CPU."
+
+        - alert: HighMemoryUsage
+          expr: sum by (pod) (container_memory_working_set_bytes{namespace="microservices",container!=""}) > 250000000
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Utilisation memoire elevee"
+            description: "Un pod du namespace microservices depasse environ 250 MB."
+
+        - alert: HighLatency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (le) (
+                rate(http_request_duration_seconds_bucket[5m])
+              )
+            ) > 0.5
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Latence HTTP elevee"
+            description: "La latence p95 du backend depasse 500 ms pendant 2 minutes."
+
+        - alert: HTTP5xxErrors
+          expr: sum(rate(http_requests_total{status_code=~"5.."}[5m])) > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Erreurs HTTP 5xx detectees"
+            description: "Le backend genere des reponses HTTP 5xx."

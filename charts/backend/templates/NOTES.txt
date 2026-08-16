@@ -1,0 +1,12 @@
+﻿Le microservice backend a été installé avec succès.
+
+Vérification :
+
+  kubectl get deployment backend -n {{ .Release.Namespace }}
+
+  kubectl get pods -n {{ .Release.Namespace }} 
+    -l app.kubernetes.io/name=backend
+
+  kubectl get service backend -n {{ .Release.Namespace }}
+
+  kubectl get hpa backend -n {{ .Release.Namespace }}

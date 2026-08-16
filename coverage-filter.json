@@ -1,0 +1,20 @@
+{
+    "resourceType":  [
+                         {
+                             "value":  "AWS_ECR_CONTAINER_IMAGE",
+                             "comparison":  "EQUALS"
+                         }
+                     ],
+    "ecrImageTags":  [
+                         {
+                             "value":  "v3",
+                             "comparison":  "EQUALS"
+                         }
+                     ],
+    "ecrRepositoryName":  [
+                              {
+                                  "value":  "frontend",
+                                  "comparison":  "EQUALS"
+                              }
+                          ]
+}

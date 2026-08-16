@@ -1,0 +1,275 @@
+﻿# ============================================================
+# Configuration globale - environnement PRODUCTION
+# ============================================================
+
+global:
+  # Environnement de déploiement
+  environment: prod
+
+  # Région AWS utilisée
+  awsRegion: eu-west-3
+
+  # Tag Docker global
+  imageTag: v3
+
+  # Toujours récupérer la dernière image
+  imagePullPolicy: Always
+
+
+# ============================================================
+# Frontend
+# ============================================================
+
+frontend:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn
+
+
+# ============================================================
+# Backend
+# ============================================================
+
+backend:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn
+
+
+# ============================================================
+# User Service
+# ============================================================
+
+user-service:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn
+
+
+# ============================================================
+# Product Service
+# ============================================================
+
+product-service:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn
+
+
+# ============================================================
+# Order Service
+# ============================================================
+
+order-service:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn
+
+
+# ============================================================
+# Payment Service
+# ============================================================
+
+payment-service:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn
+
+
+# ============================================================
+# Notification Service
+# ============================================================
+
+notification-service:
+  # Nombre initial de pods
+  replicaCount: 3
+
+  # Service Kubernetes
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  # Ressources CPU et mémoire
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Horizontal Pod Autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 60
+
+  # Variables de configuration
+  configMap:
+    data:
+      APP_ENV: prod
+      LOG_LEVEL: warn

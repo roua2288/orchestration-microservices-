@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: secure-app
+  namespace: default
+  labels:
+    app: secure-app
+
+spec:
+  serviceAccountName: app-sa
+
+  containers:
+    - name: nginx
+      image: nginx:latest
+
+  restartPolicy: Never

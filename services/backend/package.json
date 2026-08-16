@@ -1,0 +1,14 @@
+{
+  "name": "backend-service",
+  "version": "1.0.0",
+  "description": "Backend API pour le projet Orchestration Microservices",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "prom-client": "^15.1.3"
+  }
+}

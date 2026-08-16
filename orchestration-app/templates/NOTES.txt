@@ -1,0 +1,13 @@
+﻿Application microservices installée avec succès.
+
+Commandes de vérification :
+
+  helm list -n microservices
+
+  kubectl get deployments -n microservices
+
+  kubectl get pods -n microservices
+
+  kubectl get services -n microservices
+
+  kubectl get hpa -n microservices

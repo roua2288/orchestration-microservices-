@@ -1,0 +1,33 @@
+﻿# Node
+node_modules/
+npm-debug.log*
+
+# Terraform
+Terraform/.terraform/
+Terraform/*.tfstate
+Terraform/*.tfstate.*
+Terraform/.terraform.lock.hcl
+
+# Secrets / local credentials
+*.pem
+*.key
+.env
+.env.*
+*.pfx
+
+# Temporary files
+*.log
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+*.tfplan

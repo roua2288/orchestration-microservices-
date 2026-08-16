@@ -1,0 +1,15 @@
+apiVersion: vpcresources.k8s.aws/v1beta1
+kind: SecurityGroupPolicy
+
+metadata:
+  name: app-sg-policy
+  namespace: default
+
+spec:
+  podSelector:
+    matchLabels:
+      app: secure-app
+
+  securityGroups:
+    groupIds:
+      - sg-019406e62afb39303

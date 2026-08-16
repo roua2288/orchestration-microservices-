@@ -1,0 +1,14 @@
+{
+  "ecrImageRepositoryName": [
+    {
+      "comparison": "EQUALS",
+      "value": "frontend"
+    }
+  ],
+  "ecrImageTags": [
+    {
+      "comparison": "EQUALS",
+      "value": "v2"
+    }
+  ]
+}
