@@ -1,0 +1,1364 @@
+---
+# Source: orchestration-app/charts/backend/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-backend
+  labels:
+    helm.sh/chart: backend-0.1.0
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/frontend/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-frontend
+  labels:
+    helm.sh/chart: frontend-0.1.0
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/notification-service/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-notification-service
+  labels:
+    helm.sh/chart: notification-service-0.1.0
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/order-service/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-order-service
+  labels:
+    helm.sh/chart: order-service-0.1.0
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/payment-service/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-payment-service
+  labels:
+    helm.sh/chart: payment-service-0.1.0
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/product-service/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-product-service
+  labels:
+    helm.sh/chart: product-service-0.1.0
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/user-service/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestration-app-user-service
+  labels:
+    helm.sh/chart: user-service-0.1.0
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: orchestration-app/charts/backend/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-backend-secret
+  labels:
+    helm.sh/chart: backend-0.1.0
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/frontend/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-frontend-secret
+  labels:
+    helm.sh/chart: frontend-0.1.0
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/notification-service/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-notification-service-secret
+  labels:
+    helm.sh/chart: notification-service-0.1.0
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/order-service/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-order-service-secret
+  labels:
+    helm.sh/chart: order-service-0.1.0
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/payment-service/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-payment-service-secret
+  labels:
+    helm.sh/chart: payment-service-0.1.0
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/product-service/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-product-service-secret
+  labels:
+    helm.sh/chart: product-service-0.1.0
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/user-service/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orchestration-app-user-service-secret
+  labels:
+    helm.sh/chart: user-service-0.1.0
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  DEMO_PASSWORD: "change-me"
+  DEMO_USERNAME: "microservice-user"
+
+---
+# Source: orchestration-app/charts/backend/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-backend-config
+  labels:
+    helm.sh/chart: backend-0.1.0
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "backend"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/frontend/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-frontend-config
+  labels:
+    helm.sh/chart: frontend-0.1.0
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "frontend"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/notification-service/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-notification-service-config
+  labels:
+    helm.sh/chart: notification-service-0.1.0
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "notification-service"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/order-service/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-order-service-config
+  labels:
+    helm.sh/chart: order-service-0.1.0
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "order-service"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/payment-service/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-payment-service-config
+  labels:
+    helm.sh/chart: payment-service-0.1.0
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "payment-service"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/product-service/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-product-service-config
+  labels:
+    helm.sh/chart: product-service-0.1.0
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "product-service"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/user-service/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestration-app-user-service-config
+  labels:
+    helm.sh/chart: user-service-0.1.0
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  APP_ENV: "dev"
+  APP_NAME: "user-service"
+  AWS_REGION: "eu-west-3"
+  LOG_LEVEL: "info"
+
+---
+# Source: orchestration-app/charts/backend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-backend
+  labels:
+    helm.sh/chart: backend-0.1.0
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/frontend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-frontend
+  labels:
+    helm.sh/chart: frontend-0.1.0
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/notification-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-notification-service
+  labels:
+    helm.sh/chart: notification-service-0.1.0
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/order-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-order-service
+  labels:
+    helm.sh/chart: order-service-0.1.0
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/payment-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-payment-service
+  labels:
+    helm.sh/chart: payment-service-0.1.0
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/product-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-product-service
+  labels:
+    helm.sh/chart: product-service-0.1.0
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/user-service/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestration-app-user-service
+  labels:
+    helm.sh/chart: user-service-0.1.0
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+  selector:
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+
+---
+# Source: orchestration-app/charts/backend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: orchestration-app-backend
+  labels:
+    helm.sh/chart: backend-0.1.0
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: backend
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: 80c215a0ca91b6dd5e72257dbe780f7a9e66a2f19129f39d9b2b3b4e5be72ce6
+        checksum/secret: d283996c3182e54fafd3c37de3880ea200975b26566e84be96b39dc5ed5bce3d
+
+      labels:
+        helm.sh/chart: backend-0.1.0
+        app.kubernetes.io/name: backend
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-backend
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: backend
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/backend:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-backend-config
+            - secretRef:
+                name: orchestration-app-backend-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+---
+# Source: orchestration-app/charts/frontend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-app-frontend
+  labels:
+    helm.sh/chart: frontend-0.1.0
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: frontend
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: 913ea11866b548d0b7fd64edb88fcb23b540aa0cbfd65e6cb9555cb21b120bab
+        checksum/secret: 2adce77508b8c4a6a59477f6111a00609f98c42c76eb25948449b991750d57b4
+
+      labels:
+        helm.sh/chart: frontend-0.1.0
+        app.kubernetes.io/name: frontend
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-frontend
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: frontend
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/frontend:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-frontend-config
+            - secretRef:
+                name: orchestration-app-frontend-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+
+---
+# Source: orchestration-app/charts/notification-service/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-app-notification-service
+  labels:
+    helm.sh/chart: notification-service-0.1.0
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: notification-service
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: ebaf362c09cc35fcde7d25c617ae7e734faaa23001c69082d44f094fdd15c854
+        checksum/secret: cec4b44bbe39b8442953b5e29353f8192b0c601e449c9bd432c1d0767187dff0
+
+      labels:
+        helm.sh/chart: notification-service-0.1.0
+        app.kubernetes.io/name: notification-service
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-notification-service
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: notification-service
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/notification-service:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-notification-service-config
+            - secretRef:
+                name: orchestration-app-notification-service-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+
+---
+# Source: orchestration-app/charts/order-service/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-app-order-service
+  labels:
+    helm.sh/chart: order-service-0.1.0
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: order-service
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: 3603e7600658a9683566e91992b926a4fe5f89df0bb8baf69b0cd3d58c8e4dc7
+        checksum/secret: 48cf0be94958a76bf2276795fed4b1158341b808331fd08798245e4d195cac11
+
+      labels:
+        helm.sh/chart: order-service-0.1.0
+        app.kubernetes.io/name: order-service
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-order-service
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: order-service
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/order-service:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-order-service-config
+            - secretRef:
+                name: orchestration-app-order-service-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+
+---
+# Source: orchestration-app/charts/payment-service/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-app-payment-service
+  labels:
+    helm.sh/chart: payment-service-0.1.0
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: payment-service
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: ae7918ca71509e5767a0c51d93e96a6fef1578a42fcf530c40d6da6f21231d4a
+        checksum/secret: d354c02dc3eae5073c8e949d543bc7c799460eb29332d23d159e416de61beb75
+
+      labels:
+        helm.sh/chart: payment-service-0.1.0
+        app.kubernetes.io/name: payment-service
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-payment-service
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: payment-service
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/payment-service:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-payment-service-config
+            - secretRef:
+                name: orchestration-app-payment-service-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+
+---
+# Source: orchestration-app/charts/product-service/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-app-product-service
+  labels:
+    helm.sh/chart: product-service-0.1.0
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: product-service
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: e3edde6b4c504bc1524cad647e5885d121a342aa1425e031874cb54c2dbf2438
+        checksum/secret: 557257de7a2c7864f66236df81b8a57aaf554735306a0854e7ad05ec59fb4f69
+
+      labels:
+        helm.sh/chart: product-service-0.1.0
+        app.kubernetes.io/name: product-service
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-product-service
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: product-service
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/product-service:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-product-service-config
+            - secretRef:
+                name: orchestration-app-product-service-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+
+---
+# Source: orchestration-app/charts/user-service/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestration-app-user-service
+  labels:
+    helm.sh/chart: user-service-0.1.0
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: user-service
+      app.kubernetes.io/instance: orchestration-app
+
+  template:
+    metadata:
+      annotations:
+        checksum/config: 85bd159b078e05c72a06f27a125845e30c24a1f271327fc33afda8c2aae73de5
+        checksum/secret: 76c47ecba0c299d68a42ad29e04a328923f40950c24ffea6d0548da06feb3993
+
+      labels:
+        helm.sh/chart: user-service-0.1.0
+        app.kubernetes.io/name: user-service
+        app.kubernetes.io/instance: orchestration-app
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: orchestration-app-user-service
+
+      securityContext:
+        runAsNonRoot: false
+
+      containers:
+        - name: user-service
+
+          securityContext:
+            {}
+
+          image: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/user-service:2e16706efdd325880a8fee5da2ef262302d6f473"
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: orchestration-app-user-service-config
+            - secretRef:
+                name: orchestration-app-user-service-secret
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+
+---
+# Source: orchestration-app/charts/backend/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-backend
+  labels:
+    helm.sh/chart: backend-0.1.0
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-backend
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# Source: orchestration-app/charts/frontend/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-frontend
+  labels:
+    helm.sh/chart: frontend-0.1.0
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-frontend
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# Source: orchestration-app/charts/notification-service/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-notification-service
+  labels:
+    helm.sh/chart: notification-service-0.1.0
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-notification-service
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# Source: orchestration-app/charts/order-service/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-order-service
+  labels:
+    helm.sh/chart: order-service-0.1.0
+    app.kubernetes.io/name: order-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-order-service
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# Source: orchestration-app/charts/payment-service/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-payment-service
+  labels:
+    helm.sh/chart: payment-service-0.1.0
+    app.kubernetes.io/name: payment-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-payment-service
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# Source: orchestration-app/charts/product-service/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-product-service
+  labels:
+    helm.sh/chart: product-service-0.1.0
+    app.kubernetes.io/name: product-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-product-service
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+---
+# Source: orchestration-app/charts/user-service/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orchestration-app-user-service
+  labels:
+    helm.sh/chart: user-service-0.1.0
+    app.kubernetes.io/name: user-service
+    app.kubernetes.io/instance: orchestration-app
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orchestration-app-user-service
+
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+

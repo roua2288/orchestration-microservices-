@@ -1,4 +1,4 @@
-﻿# Nombre de réplicas du pod backend lorsque l'autoscaling est désactivé.
+# Nombre de réplicas du pod backend lorsque l'autoscaling est désactivé.
 replicaCount: 2
 
 # Configuration de l'image Docker du backend.
