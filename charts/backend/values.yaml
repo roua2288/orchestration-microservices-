@@ -1,4 +1,4 @@
-﻿# Nombre de réplicas du pod backend lorsque l'autoscaling est désactivé.
+# Nombre de réplicas du pod backend lorsque l'autoscaling est désactivé.
 replicaCount: 2
 
 # Configuration de l'image Docker du backend.
@@ -188,7 +188,7 @@ autoscaling:
   enabled: true
 
   # Nombre minimum de réplicas.
-  minReplicas: 2
+  minReplicas: 5
 
   # Nombre maximum de réplicas.
   maxReplicas: 5
@@ -246,3 +246,4 @@ updateStrategy:
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 0
+

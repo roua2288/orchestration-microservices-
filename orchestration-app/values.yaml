@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # Valeurs globales partagees
 # ============================================================
 
@@ -156,7 +156,7 @@ backend:
   # Autoscaling du backend
   autoscaling:
     enabled: true
-    minReplicas: 2
+    minReplicas: 5
     maxReplicas: 5
     targetCPUUtilizationPercentage: 70
 
@@ -606,3 +606,4 @@ notification-service:
 
   # Parametres de securite
   securityContext: {}
+
