@@ -1,9 +1,9 @@
 ﻿global:
   resolve_timeout: 5m
   smtp_smarthost: 'smtp.gmail.com:587'
-  smtp_from: 'rouabenamor228@gmail.com'
-  smtp_auth_username: 'rouabenamor228@gmail.com'
-  smtp_auth_password: 'nyyh ksyx ncon ible'
+  smtp_from: 'your mail'
+  smtp_auth_username: 'your mail'
+  smtp_auth_password: 'password'
   smtp_require_tls: true
 
 route:
@@ -28,7 +28,7 @@ receivers:
 
   - name: 'email-notifications'
     email_configs:
-      - to: 'rouabenamor228@gmail.com'
+      - to: 'mail'
         send_resolved: true
         headers:
           subject: '[EKS Alert] {{ .CommonLabels.alertname }}'
