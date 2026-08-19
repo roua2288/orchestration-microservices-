@@ -378,7 +378,7 @@ order-service:
   image:
     repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/order-service"
     pullPolicy: IfNotPresent
-    tag: "2e16706efdd325880a8fee5da2ef262302d6f473"
+    tag: "97fb2d7c82710c1f52fc7b268814aaf356ea0a1f"
 
   # Service Kubernetes
   service:
