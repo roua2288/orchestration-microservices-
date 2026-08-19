@@ -1,4 +1,4 @@
-﻿replicaCount: 2
+replicaCount: 2
 
 image:
   repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/order-service"
@@ -20,14 +20,22 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext:
-  runAsNonRoot: false
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
 
-securityContext: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop:
+      - ALL
 
 service:
   type: ClusterIP
   port: 80
-  targetPort: 80
+  targetPort: 8080
 
 configMap:
   enabled: true
@@ -36,6 +44,9 @@ configMap:
     APP_ENV: "dev"
     AWS_REGION: "eu-west-3"
     LOG_LEVEL: "info"
+    PAYMENT_SERVICE_URL: "http://orchestration-app-payment-service"
+    CONNECT_TIMEOUT: "2"
+    READ_TIMEOUT: "3"
 
 secret:
   enabled: true
@@ -46,7 +57,7 @@ secret:
 probes:
   startup:
     enabled: true
-    path: /
+    path: /health
     initialDelaySeconds: 0
     periodSeconds: 5
     timeoutSeconds: 3
@@ -54,7 +65,7 @@ probes:
 
   liveness:
     enabled: true
-    path: /
+    path: /health
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 3
@@ -62,7 +73,7 @@ probes:
 
   readiness:
     enabled: true
-    path: /
+    path: /health
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 3
