@@ -1,4 +1,4 @@
-﻿replicaCount: 2
+replicaCount: 2
 
 image:
   repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/notification-service"
@@ -38,10 +38,9 @@ configMap:
     LOG_LEVEL: "info"
 
 secret:
-  enabled: true
-  stringData:
-    DEMO_USERNAME: "microservice-user"
-    DEMO_PASSWORD: "change-me"
+  enabled: false
+  managedExternally: false
+  stringData: {}
 
 probes:
   startup:

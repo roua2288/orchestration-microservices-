@@ -49,10 +49,9 @@ configMap:
     READ_TIMEOUT: "3"
 
 secret:
-  enabled: true
-  stringData:
-    DEMO_USERNAME: "microservice-user"
-    DEMO_PASSWORD: "change-me"
+  enabled: false
+  managedExternally: false
+  stringData: {}
 
 probes:
   startup:

@@ -1,4 +1,4 @@
-﻿# Number of frontend replicas
+# Number of frontend replicas
 replicaCount: 2
 
 # Docker image configuration
@@ -70,12 +70,10 @@ configMap:
 
 # Sensitive configuration
 secret:
-  enabled: true
-  stringData:
-    DEMO_USERNAME: "microservice-user"
-    DEMO_PASSWORD: "change-me"
+  enabled: false
+  managedExternally: false
+  stringData: {}
 
-# Health checks
 probes:
   startup:
     enabled: true

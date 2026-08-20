@@ -88,20 +88,10 @@ configMap:
 
 # Configuration sensible injectée dans le backend via Kubernetes Secret.
 secret:
-  # Active la création du Secret.
-  enabled: true
+  enabled: false
+  managedExternally: false
+  stringData: {}
 
-  # Valeurs stockées dans le Secret sous forme de chaînes.
-  # En production, ces valeurs doivent être remplacées par une solution sécurisée.
-  stringData:
-    # Nom d'utilisateur utilisé pour la démonstration.
-    DEMO_USERNAME: "microservice-user"
-
-    # Mot de passe de démonstration.
-    # Cette valeur doit être remplacée dans un environnement réel.
-    DEMO_PASSWORD: "change-me"
-
-# Configuration des probes Kubernetes utilisées pour vérifier l'état du backend.
 probes:
 
   # Startup Probe : vérifie que l'application a correctement démarré.
