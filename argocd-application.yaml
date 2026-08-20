@@ -1,10 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: orchestration-app
-  namespace: default
+  name: orchestration-microservices
+  namespace: argocd
 spec:
   project: default
+  revisionHistoryLimit: 5
 
   source:
     repoURL: https://github.com/roua2288/orchestration-microservices-.git
@@ -12,11 +13,19 @@ spec:
     path: orchestration-app
     helm:
       releaseName: orchestration-app
+      valueFiles:
+        - values.yaml
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: microservices
 
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
