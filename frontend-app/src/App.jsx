@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import { ClientPortal, PortalLanding } from "./ClientPortal";
 
 const isLocal =
   window.location.hostname === "localhost" &&
@@ -815,6 +816,8 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(null);
   const [message, setMessage] = useState(null);
+  const [portal, setPortal] = useState("landing");
+  const [currentUser, setCurrentUser] = useState(null);
 
   async function request(url, options = {}) {
     const response = await fetch(url, {
@@ -940,6 +943,54 @@ export default function App() {
     }
   }
 
+  if (portal === "landing") {
+    return (
+      <>
+        <PortalLanding
+          users={data.users}
+          loading={loading}
+          request={request}
+          reloadUsers={() => loadResource("users")}
+          showMessage={showMessage}
+          onAdmin={() => setPortal("admin")}
+          onClient={(user) => {
+            setCurrentUser(user);
+            setPortal("client");
+          }}
+        />
+
+        {message && (
+          <div className={`toast toast--${message.type}`}>
+            {message.text}
+          </div>
+        )}
+      </>
+    );
+  }
+
+  if (portal === "client" && currentUser) {
+    return (
+      <>
+        <ClientPortal
+          user={currentUser}
+          data={data}
+          request={request}
+          loadResource={loadResource}
+          showMessage={showMessage}
+          onLogout={() => {
+            setCurrentUser(null);
+            setPortal("landing");
+          }}
+        />
+
+        {message && (
+          <div className={`toast toast--${message.type}`}>
+            {message.text}
+          </div>
+        )}
+      </>
+    );
+  }
   const activeTitle =
     activePage === "dashboard"
       ? "Tableau de bord"
@@ -1011,6 +1062,12 @@ export default function App() {
           </div>
 
           <div className="topbar__actions">
+            <button
+              className="portal-switch-button"
+              onClick={() => setPortal("landing")}
+            >
+              Changer d’espace
+            </button>
             <span className="cluster-badge">
               <i />
               Cluster opérationnel
