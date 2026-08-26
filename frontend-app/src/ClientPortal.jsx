@@ -227,6 +227,14 @@ export function ClientPortal({
   const [page, setPage] = useState("catalogue");
   const [search, setSearch] = useState("");
   const [busyId, setBusyId] = useState(null);
+  const [paymentOrder, setPaymentOrder] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  const [card, setCard] = useState({
+    holder: "",
+    number: "",
+    expiry: "",
+    cvv: "",
+  });
 
   const products = useMemo(
     () =>
@@ -292,15 +300,21 @@ export function ClientPortal({
     }
   }
 
-  async function payOrder(order) {
-    setBusyId(order.id);
+  async function confirmPayment(event) {
+    event.preventDefault();
+
+    if (!paymentOrder) {
+      return;
+    }
+
+    setBusyId(paymentOrder.id);
 
     try {
       await request("/payments", {
         method: "POST",
         body: JSON.stringify({
-          order_id: order.id,
-          payment_method: "card",
+          order_id: paymentOrder.id,
+          payment_method: paymentMethod,
           status: "completed",
         }),
       });
@@ -310,7 +324,14 @@ export function ClientPortal({
         loadResource("orders"),
       ]);
 
-      showMessage("Paiement enregistré avec succès.");
+      showMessage("Paiement confirmé avec succès.");
+      setPaymentOrder(null);
+      setCard({
+        holder: "",
+        number: "",
+        expiry: "",
+        cvv: "",
+      });
       setPage("payments");
     } catch (error) {
       showMessage(error.message, "error");
@@ -501,7 +522,7 @@ export function ClientPortal({
 
                         {!alreadyPaid && (
                           <button
-                            onClick={() => payOrder(order)}
+                            onClick={() => setPaymentOrder(order)}
                             disabled={busyId === order.id}
                           >
                             {busyId === order.id
@@ -583,6 +604,236 @@ export function ClientPortal({
           </section>
         )}
       </main>
+
+      {paymentOrder && (
+        <div
+          className="payment-backdrop"
+          onMouseDown={() => setPaymentOrder(null)}
+        >
+          <form
+            className="payment-modal"
+            onSubmit={confirmPayment}
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <div className="payment-modal__header">
+              <div>
+                <span>Paiement sécurisé</span>
+                <h2>Finaliser la commande</h2>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setPaymentOrder(null)}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="payment-summary">
+              <div className="payment-summary__icon">☁</div>
+
+              <div>
+                <small>Formation sélectionnée</small>
+                <strong>
+                  {productName(paymentOrder.product_id)}
+                </strong>
+                <span>{paymentOrder.reference}</span>
+              </div>
+
+              <b>{money(paymentOrder.total_amount)}</b>
+            </div>
+
+            <div className="payment-methods">
+              <button
+                type="button"
+                className={paymentMethod === "card" ? "active" : ""}
+                onClick={() => setPaymentMethod("card")}
+              >
+                <span>💳</span>
+                <strong>Carte bancaire</strong>
+                <small>Paiement immédiat</small>
+              </button>
+
+              <button
+                type="button"
+                className={
+                  paymentMethod === "bank_transfer" ? "active" : ""
+                }
+                onClick={() => setPaymentMethod("bank_transfer")}
+              >
+                <span>🏦</span>
+                <strong>Virement</strong>
+                <small>Compte bancaire</small>
+              </button>
+
+              <button
+                type="button"
+                className={paymentMethod === "cash" ? "active" : ""}
+                onClick={() => setPaymentMethod("cash")}
+              >
+                <span>💵</span>
+                <strong>Espèces</strong>
+                <small>Paiement sur place</small>
+              </button>
+            </div>
+
+            {paymentMethod === "card" && (
+              <>
+                <div className="virtual-card">
+                  <div className="virtual-card__top">
+                    <span>OM Academy</span>
+                    <b>VISA</b>
+                  </div>
+
+                  <strong>
+                    {card.number || "•••• •••• •••• ••••"}
+                  </strong>
+
+                  <div>
+                    <span>{card.holder || "NOM DU TITULAIRE"}</span>
+                    <span>{card.expiry || "MM/AA"}</span>
+                  </div>
+                </div>
+
+                <div className="payment-form-grid">
+                  <label className="payment-field payment-field--full">
+                    <span>Nom du titulaire</span>
+                    <input
+                      type="text"
+                      placeholder="ROUA BEN AMOR"
+                      value={card.holder}
+                      required
+                      onChange={(event) =>
+                        setCard({
+                          ...card,
+                          holder: event.target.value.toUpperCase(),
+                        })
+                      }
+                    />
+                  </label>
+
+                  <label className="payment-field payment-field--full">
+                    <span>Numéro de carte</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="1234 5678 9012 3456"
+                      maxLength="19"
+                      value={card.number}
+                      required
+                      onChange={(event) => {
+                        const value = event.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 16)
+                          .replace(/(.{4})/g, "$1 ")
+                          .trim();
+
+                        setCard({
+                          ...card,
+                          number: value,
+                        });
+                      }}
+                    />
+                  </label>
+
+                  <label className="payment-field">
+                    <span>Date d’expiration</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="MM/AA"
+                      maxLength="5"
+                      value={card.expiry}
+                      required
+                      onChange={(event) => {
+                        let value = event.target.value
+                          .replace(/\D/g, "")
+                          .slice(0, 4);
+
+                        if (value.length > 2) {
+                          value =
+                            value.slice(0, 2) +
+                            "/" +
+                            value.slice(2);
+                        }
+
+                        setCard({
+                          ...card,
+                          expiry: value,
+                        });
+                      }}
+                    />
+                  </label>
+
+                  <label className="payment-field">
+                    <span>CVV</span>
+                    <input
+                      type="password"
+                      inputMode="numeric"
+                      placeholder="•••"
+                      maxLength="3"
+                      value={card.cvv}
+                      required
+                      onChange={(event) =>
+                        setCard({
+                          ...card,
+                          cvv: event.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 3),
+                        })
+                      }
+                    />
+                  </label>
+                </div>
+              </>
+            )}
+
+            {paymentMethod === "bank_transfer" && (
+              <div className="payment-instructions">
+                <span>🏦</span>
+                <div>
+                  <strong>Virement bancaire</strong>
+                  <p>
+                    La commande sera confirmée après validation du
+                    virement par l’administration.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {paymentMethod === "cash" && (
+              <div className="payment-instructions">
+                <span>💵</span>
+                <div>
+                  <strong>Paiement en espèces</strong>
+                  <p>
+                    Vous pourrez régler le montant auprès du centre de
+                    formation.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="payment-security">
+              <span>🔒</span>
+              <p>
+                Démonstration sécurisée : les informations de carte ne
+                sont jamais envoyées ni enregistrées.
+              </p>
+            </div>
+
+            <button
+              className="payment-submit"
+              type="submit"
+              disabled={busyId === paymentOrder.id}
+            >
+              {busyId === paymentOrder.id
+                ? "Traitement du paiement..."
+                : `Payer ${money(paymentOrder.total_amount)}`}
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
