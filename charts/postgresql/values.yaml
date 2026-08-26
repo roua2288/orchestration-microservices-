@@ -26,10 +26,9 @@ resources:
     memory: 512Mi
 
 securityContext:
-  runAsNonRoot: true
-  runAsUser: 999
-  runAsGroup: 999
+  runAsNonRoot: false
   fsGroup: 999
+  fsGroupChangePolicy: OnRootMismatch
 
 podAnnotations: {}
 

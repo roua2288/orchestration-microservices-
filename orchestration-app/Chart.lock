@@ -22,18 +22,18 @@ dependencies:
   version: 0.1.0
 - name: postgresql
   repository: file://../charts/postgresql
-  version: 0.1.0
+  version: 0.1.1
 - name: postgresql
   repository: file://../charts/postgresql
-  version: 0.1.0
+  version: 0.1.1
 - name: postgresql
   repository: file://../charts/postgresql
-  version: 0.1.0
+  version: 0.1.1
 - name: postgresql
   repository: file://../charts/postgresql
-  version: 0.1.0
+  version: 0.1.1
 - name: postgresql
   repository: file://../charts/postgresql
-  version: 0.1.0
-digest: sha256:825a78d41d86bd6b92df4c2718387711db409f3cc9586b48d6444702726271de
-generated: "2026-08-26T04:29:38.0971839+01:00"
+  version: 0.1.1
+digest: sha256:9dcbd70ce04187328fd9df65e0f44c25df5c4500667c3459966abf5b84103b15
+generated: "2026-08-26T04:47:51.7617092+01:00"

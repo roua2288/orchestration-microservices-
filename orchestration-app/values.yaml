@@ -600,3 +600,23 @@ externalSecrets:
     - order-service
     - payment-service
     - notification-service
+
+# ============================================================
+# Bases PostgreSQL
+# Désactivées par défaut jusqu'à la création des secrets AWS
+# ============================================================
+
+users-db:
+  enabled: false
+
+products-db:
+  enabled: false
+
+orders-db:
+  enabled: false
+
+payments-db:
+  enabled: false
+
+notifications-db:
+  enabled: false

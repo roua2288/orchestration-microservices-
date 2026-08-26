@@ -43,30 +43,30 @@ dependencies:
 
   - name: postgresql
     alias: users-db
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../charts/postgresql"
     condition: users-db.enabled
 
   - name: postgresql
     alias: products-db
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../charts/postgresql"
     condition: products-db.enabled
 
   - name: postgresql
     alias: orders-db
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../charts/postgresql"
     condition: orders-db.enabled
 
   - name: postgresql
     alias: payments-db
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../charts/postgresql"
     condition: payments-db.enabled
 
   - name: postgresql
     alias: notifications-db
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../charts/postgresql"
     condition: notifications-db.enabled
