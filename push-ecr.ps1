@@ -53,7 +53,12 @@ foreach ($service in $services) {
 
     $LocalImage = "${service}:$Tag"
     $EcrImage = "$Registry/${service}:$Tag"
-    $Context = ".\services\$service"
+    if ($service -eq "frontend") {
+        $Context = ".\frontend-app"
+    }
+    else {
+        $Context = ".\services\$service"
+    }
 
     Write-Host "`n=== Build de $service ==="
 

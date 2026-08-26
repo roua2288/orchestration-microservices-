@@ -1,0 +1,6 @@
+apiVersion: v2
+name: postgresql
+description: Chart Helm PostgreSQL persistant pour les microservices
+type: application
+version: 0.1.0
+appVersion: "16"

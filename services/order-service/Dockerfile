@@ -1,29 +1,20 @@
-FROM python:3.13-slim
-
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+FROM node:22-alpine
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY package*.json ./
 
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN npm install --omit=dev
 
-COPY app.py .
+COPY app.js ./
 
-RUN useradd --create-home --uid 10001 appuser && \
-    chown -R appuser:appuser /app
+ENV NODE_ENV=production
+ENV PORT=80
 
-USER appuser
+EXPOSE 80
 
-EXPOSE 8080
+USER node
 
-HEALTHCHECK \
-  --interval=30s \
-  --timeout=5s \
-  --start-period=10s \
-  --retries=3 \
-  CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=3)"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 CMD wget --quiet --spider http://127.0.0.1/health || exit 1
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "--threads", "2", "--timeout", "30", "app:app"]
+CMD ["npm", "start"]

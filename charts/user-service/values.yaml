@@ -1,3 +1,5 @@
+databaseSecretName: ""
+
 replicaCount: 2
 
 image:

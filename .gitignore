@@ -1,4 +1,4 @@
-﻿# Node
+# Node
 node_modules/
 npm-debug.log*
 
@@ -31,3 +31,6 @@ Thumbs.db
 *.tfstate
 *.tfstate.*
 *.tfplan
+
+# Autoriser les exemples de configuration
+!.env.example

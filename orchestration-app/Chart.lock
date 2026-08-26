@@ -20,5 +20,20 @@ dependencies:
 - name: notification-service
   repository: file://../charts/notification-service
   version: 0.1.0
-digest: sha256:f76b1cba7f6b2bb030d96853e70b431ac726c69379a65ff1a144019f88170cd0
-generated: "2026-08-02T21:57:29.3409639+01:00"
+- name: postgresql
+  repository: file://../charts/postgresql
+  version: 0.1.0
+- name: postgresql
+  repository: file://../charts/postgresql
+  version: 0.1.0
+- name: postgresql
+  repository: file://../charts/postgresql
+  version: 0.1.0
+- name: postgresql
+  repository: file://../charts/postgresql
+  version: 0.1.0
+- name: postgresql
+  repository: file://../charts/postgresql
+  version: 0.1.0
+digest: sha256:825a78d41d86bd6b92df4c2718387711db409f3cc9586b48d6444702726271de
+generated: "2026-08-26T04:29:38.0971839+01:00"

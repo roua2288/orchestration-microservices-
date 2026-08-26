@@ -1,0 +1,7 @@
+PostgreSQL a été déployé.
+
+Service :
+  {{ include "postgresql.fullname" . }}:{{ .Values.service.port }}
+
+Secret :
+  {{ include "postgresql.secretName" . }}

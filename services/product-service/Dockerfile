@@ -1,25 +1,20 @@
-﻿# Stage 1 : préparation des fichiers
-FROM alpine:3.22 AS builder
+FROM node:22-alpine
 
-WORKDIR /build
+WORKDIR /app
 
-COPY index.html .
+COPY package*.json ./
 
-RUN mkdir -p /dist && \
-    cp index.html /dist/index.html
+RUN npm install --omit=dev
 
-# Stage 2 : runtime minimal
-FROM nginx:1.29-alpine AS runtime
+COPY app.js ./
 
-COPY --from=builder /dist/index.html /usr/share/nginx/html/index.html
+ENV NODE_ENV=production
+ENV PORT=80
 
 EXPOSE 80
 
-HEALTHCHECK \
-  --interval=30s \
-  --timeout=5s \
-  --start-period=5s \
-  --retries=3 \
-  CMD ["wget", "--quiet", "--spider", "http://127.0.0.1/"]
+USER node
 
-CMD ["nginx", "-g", "daemon off;"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 CMD wget --quiet --spider http://127.0.0.1/health || exit 1
+
+CMD ["npm", "start"]

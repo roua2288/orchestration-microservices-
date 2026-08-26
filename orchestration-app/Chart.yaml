@@ -1,9 +1,9 @@
-﻿apiVersion: v2
+apiVersion: v2
 name: orchestration-app
 description: Helm Umbrella Chart pour l'application microservices sur Amazon EKS
 type: application
-version: 0.1.0
-appVersion: "1.0.0"
+version: 0.2.0
+appVersion: "2.0.0"
 
 dependencies:
   - name: frontend
@@ -40,3 +40,33 @@ dependencies:
     version: 0.1.0
     repository: "file://../charts/notification-service"
     condition: notification-service.enabled
+
+  - name: postgresql
+    alias: users-db
+    version: 0.1.0
+    repository: "file://../charts/postgresql"
+    condition: users-db.enabled
+
+  - name: postgresql
+    alias: products-db
+    version: 0.1.0
+    repository: "file://../charts/postgresql"
+    condition: products-db.enabled
+
+  - name: postgresql
+    alias: orders-db
+    version: 0.1.0
+    repository: "file://../charts/postgresql"
+    condition: orders-db.enabled
+
+  - name: postgresql
+    alias: payments-db
+    version: 0.1.0
+    repository: "file://../charts/postgresql"
+    condition: payments-db.enabled
+
+  - name: postgresql
+    alias: notifications-db
+    version: 0.1.0
+    repository: "file://../charts/postgresql"
+    condition: notifications-db.enabled

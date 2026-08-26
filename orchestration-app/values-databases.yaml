@@ -1,0 +1,90 @@
+users-db:
+  enabled: true
+  fullnameOverride: users-db
+  database:
+    name: users_db
+    user: user_admin
+    password: CHANGE_ME_USERS_PASSWORD
+  persistence:
+    enabled: true
+    storageClassName: gp3
+    size: 5Gi
+
+products-db:
+  enabled: true
+  fullnameOverride: products-db
+  database:
+    name: products_db
+    user: product_admin
+    password: CHANGE_ME_PRODUCTS_PASSWORD
+  persistence:
+    enabled: true
+    storageClassName: gp3
+    size: 5Gi
+
+orders-db:
+  enabled: true
+  fullnameOverride: orders-db
+  database:
+    name: orders_db
+    user: order_admin
+    password: CHANGE_ME_ORDERS_PASSWORD
+  persistence:
+    enabled: true
+    storageClassName: gp3
+    size: 5Gi
+
+payments-db:
+  enabled: true
+  fullnameOverride: payments-db
+  database:
+    name: payments_db
+    user: payment_admin
+    password: CHANGE_ME_PAYMENTS_PASSWORD
+  persistence:
+    enabled: true
+    storageClassName: gp3
+    size: 5Gi
+
+notifications-db:
+  enabled: true
+  fullnameOverride: notifications-db
+  database:
+    name: notifications_db
+    user: notification_admin
+    password: CHANGE_ME_NOTIFICATIONS_PASSWORD
+  persistence:
+    enabled: true
+    storageClassName: gp3
+    size: 5Gi
+
+user-service:
+  databaseSecretName: users-db-credentials
+
+product-service:
+  databaseSecretName: products-db-credentials
+
+order-service:
+  databaseSecretName: orders-db-credentials
+  configMap:
+    enabled: true
+    data:
+      APP_NAME: order-service
+      APP_ENV: production
+      AWS_REGION: eu-west-3
+      LOG_LEVEL: info
+      PRODUCT_SERVICE_URL: http://orchestration-app-product-service
+
+payment-service:
+  databaseSecretName: payments-db-credentials
+  configMap:
+    enabled: true
+    data:
+      APP_NAME: payment-service
+      APP_ENV: production
+      AWS_REGION: eu-west-3
+      LOG_LEVEL: info
+      ORDER_SERVICE_URL: http://orchestration-app-order-service
+
+notification-service:
+  databaseSecretName: notifications-db-credentials

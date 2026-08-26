@@ -67,13 +67,21 @@ jobs:
 
       # 5. Construire l'image Docker
       - name: Build Docker image
+        shell: bash
         run: |
+          if [ "${{ matrix.service }}" = "frontend" ]; then
+            BUILD_CONTEXT="./frontend-app"
+          else
+            BUILD_CONTEXT="./services/${{ matrix.service }}"
+          fi
+
+          echo "Build context: ${BUILD_CONTEXT}"
+
           docker build \
             --provenance=false \
             --sbom=false \
             -t ${{ matrix.service }}:${{ github.sha }} \
-            ./services/${{ matrix.service }}
-
+            "${BUILD_CONTEXT}"
       # 6. Scanner l'image avec Trivy
       # Les vulnerabilites sont affichees mais ne bloquent pas le pipeline
       - name: Scan Docker image with Trivy
