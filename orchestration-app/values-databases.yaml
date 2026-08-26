@@ -1,10 +1,31 @@
+databaseExternalSecrets:
+  enabled: true
+  refreshInterval: 1h
+
+  databases:
+    - targetSecretName: users-db-credentials
+      remoteSecretName: orchestration/microservices/users-db
+
+    - targetSecretName: products-db-credentials
+      remoteSecretName: orchestration/microservices/products-db
+
+    - targetSecretName: orders-db-credentials
+      remoteSecretName: orchestration/microservices/orders-db
+
+    - targetSecretName: payments-db-credentials
+      remoteSecretName: orchestration/microservices/payments-db
+
+    - targetSecretName: notifications-db-credentials
+      remoteSecretName: orchestration/microservices/notifications-db
+
 users-db:
   enabled: true
   fullnameOverride: users-db
+  existingSecret: users-db-credentials
   database:
     name: users_db
     user: user_admin
-    password: CHANGE_ME_USERS_PASSWORD
+    password: ""
   persistence:
     enabled: true
     storageClassName: gp3
@@ -13,10 +34,11 @@ users-db:
 products-db:
   enabled: true
   fullnameOverride: products-db
+  existingSecret: products-db-credentials
   database:
     name: products_db
     user: product_admin
-    password: CHANGE_ME_PRODUCTS_PASSWORD
+    password: ""
   persistence:
     enabled: true
     storageClassName: gp3
@@ -25,10 +47,11 @@ products-db:
 orders-db:
   enabled: true
   fullnameOverride: orders-db
+  existingSecret: orders-db-credentials
   database:
     name: orders_db
     user: order_admin
-    password: CHANGE_ME_ORDERS_PASSWORD
+    password: ""
   persistence:
     enabled: true
     storageClassName: gp3
@@ -37,10 +60,11 @@ orders-db:
 payments-db:
   enabled: true
   fullnameOverride: payments-db
+  existingSecret: payments-db-credentials
   database:
     name: payments_db
     user: payment_admin
-    password: CHANGE_ME_PAYMENTS_PASSWORD
+    password: ""
   persistence:
     enabled: true
     storageClassName: gp3
@@ -49,10 +73,11 @@ payments-db:
 notifications-db:
   enabled: true
   fullnameOverride: notifications-db
+  existingSecret: notifications-db-credentials
   database:
     name: notifications_db
     user: notification_admin
-    password: CHANGE_ME_NOTIFICATIONS_PASSWORD
+    password: ""
   persistence:
     enabled: true
     storageClassName: gp3

@@ -1,3 +1,5 @@
+existingSecret: ""
+
 image:
   repository: postgres
   tag: "16-alpine"

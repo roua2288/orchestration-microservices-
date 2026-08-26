@@ -16,6 +16,7 @@ spec:
       releaseName: orchestration-app
       valueFiles:
         - values.yaml
+        - values-databases.yaml
 
   destination:
     server: https://kubernetes.default.svc

@@ -24,5 +24,9 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{- define "postgresql.secretName" -}}
+{{- if .Values.existingSecret }}
+{{- .Values.existingSecret }}
+{{- else }}
 {{- printf "%s-credentials" (include "postgresql.fullname" .) }}
+{{- end }}
 {{- end }}
