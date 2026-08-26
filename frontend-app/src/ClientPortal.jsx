@@ -75,25 +75,25 @@ export function PortalLanding({
     <main className="portal-entry">
       <section className="portal-entry__visual">
         <div className="portal-brand">
-          <span>OM</span>
+          <span>S</span>
           <div>
-            <strong>Orchestration Academy</strong>
-            <small>Formations Cloud AWS & Microsoft</small>
+            <strong>SUBUL</strong>
+            <small>Formation IA, Certifications & Emploi</small>
           </div>
         </div>
 
         <div className="portal-entry__message">
-          <span className="portal-kicker">Plateforme Cloud Native</span>
-          <h1>Développez vos compétences dans le Cloud.</h1>
+          <span className="portal-kicker">Votre carrière accélérée par l’IA</span>
+          <h1>Construisez votre avenir avec SUBUL.</h1>
           <p>
-            Découvrez nos formations, passez vos commandes et suivez vos
-            paiements depuis votre espace personnel.
+            Formations premium, certifications Cloud et accompagnement
+            carrière dans une seule expérience moderne.
           </p>
 
           <div className="portal-benefits">
+            <span>✓ Parcours personnalisés</span>
             <span>✓ Formations certifiantes</span>
-            <span>✓ Paiement et suivi centralisés</span>
-            <span>✓ Infrastructure Amazon EKS</span>
+            <span>✓ Suivi de carrière intelligent</span>
           </div>
         </div>
 
@@ -358,9 +358,9 @@ export function ClientPortal({
     <div className="client-app">
       <header className="client-header">
         <div className="client-brand">
-          <span>OM</span>
+          <span>S</span>
           <div>
-            <strong>Orchestration Academy</strong>
+            <strong>SUBUL</strong>
             <small>Espace apprenant</small>
           </div>
         </div>
@@ -410,11 +410,11 @@ export function ClientPortal({
           <>
             <section className="client-hero">
               <div>
-                <span>Catalogue Cloud 2026</span>
-                <h1>Choisissez votre prochaine formation.</h1>
+                <span>SUBUL LEARNING EXPERIENCE</span>
+                <h1>Accélérez votre carrière.</h1>
                 <p>
-                  Formations AWS et Microsoft adaptées à votre niveau
-                  et à vos objectifs professionnels.
+                  Découvrez des parcours AWS, Microsoft, IA et DevOps
+                  adaptés à vos objectifs professionnels.
                 </p>
               </div>
 
@@ -681,7 +681,7 @@ export function ClientPortal({
               <>
                 <div className="virtual-card">
                   <div className="virtual-card__top">
-                    <span>OM Academy</span>
+                    <span>SUBUL</span>
                     <b>VISA</b>
                   </div>
 

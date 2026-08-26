@@ -50,13 +50,13 @@ const resources = {
   },
 
   products: {
-    title: "Produits",
-    singular: "Produit",
+    title: "Formations",
+    singular: "Formation",
     icon: "📦",
     color: "green",
     endpoint: isLocal ? "http://localhost:3002" : "/products",
     columns: [
-      ["name", "Produit"],
+      ["name", "Formation"],
       ["category", "Catégorie"],
       ["price", "Prix"],
       ["stock", "Stock"],
@@ -65,7 +65,7 @@ const resources = {
     fields: [
       {
         name: "name",
-        label: "Nom du produit",
+        label: "Nom de la formation",
         type: "text",
         required: true,
       },
@@ -112,7 +112,7 @@ const resources = {
     columns: [
       ["reference", "Référence"],
       ["user_id", "Utilisateur"],
-      ["product_id", "Produit"],
+      ["product_id", "Formation"],
       ["quantity", "Quantité"],
       ["total_amount", "Total"],
       ["status", "Statut"],
@@ -129,7 +129,7 @@ const resources = {
       },
       {
         name: "product_id",
-        label: "Produit",
+        label: "Formation",
         type: "relation",
         resource: "products",
         value: "id",
@@ -1000,11 +1000,11 @@ export default function App() {
     <div className="app-layout">
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand__logo">OM</div>
+          <div className="brand__logo">S</div>
 
           <div>
-            <strong>Orchestration</strong>
-            <span>Microservices</span>
+            <strong>SUBUL</strong>
+            <span>Administration</span>
           </div>
         </div>
 
@@ -1057,7 +1057,7 @@ export default function App() {
       <main className="main-content">
         <header className="topbar">
           <div>
-            <span className="eyebrow">Plateforme cloud</span>
+            <span className="eyebrow">SUBUL Admin</span>
             <h1>{activeTitle}</h1>
           </div>
 

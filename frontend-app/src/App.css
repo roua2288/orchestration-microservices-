@@ -8,6 +8,22 @@
   text-rendering: optimizeLegibility;
 }
 
+/* Identité administrateur SUBUL */
+.brand__logo {
+  background: linear-gradient(135deg, #635bff, #8b5cf6);
+  box-shadow: 0 12px 26px rgba(99, 91, 255, 0.28);
+}
+
+.navigation button.active,
+.primary-button {
+  background: linear-gradient(135deg, #635bff, #7c4dff);
+}
+
+.eyebrow,
+.section-label {
+  color: #635bff;
+}
+
 * {
   box-sizing: border-box;
 }

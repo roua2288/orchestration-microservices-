@@ -5,6 +5,66 @@
   background: #f8fafc;
 }
 
+/* Finition SaaS SUBUL */
+.portal-primary,
+.course-card button,
+.payment-submit {
+  background: linear-gradient(135deg, var(--subul-primary), var(--subul-secondary));
+  box-shadow: 0 13px 28px rgba(99, 91, 255, 0.22);
+}
+
+.client-app {
+  background: var(--subul-soft);
+}
+
+.client-header {
+  border-bottom-color: #ebe9ff;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.client-header nav button.active {
+  color: var(--subul-primary);
+}
+
+.client-hero {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(167, 139, 250, 0.5), transparent 24%),
+    linear-gradient(135deg, #171633, #403286 62%, #6954df);
+}
+
+.course-card,
+.client-panel,
+.payment-modal {
+  border-color: #ebe9ff;
+  box-shadow: 0 22px 55px rgba(44, 38, 94, 0.09);
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 65px rgba(99, 91, 255, 0.16);
+}
+
+.payment-methods button.active,
+.payment-field input:focus {
+  border-color: var(--subul-primary);
+  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+}
+
+.virtual-card {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(255, 255, 255, 0.2), transparent 30%),
+    linear-gradient(135deg, #16152f, #5b45d6 70%, #8b5cf6);
+}
+
+/* Identité visuelle SUBUL */
+:root {
+  --subul-primary: #635bff;
+  --subul-secondary: #8b5cf6;
+  --subul-dark: #11122b;
+  --subul-soft: #f6f7ff;
+}
+
 .portal-entry__visual {
   position: relative;
   min-height: 100vh;
@@ -14,9 +74,9 @@
   overflow: hidden;
   color: white;
   background:
-    radial-gradient(circle at 85% 15%, rgba(99, 102, 241, 0.55), transparent 28%),
-    radial-gradient(circle at 15% 85%, rgba(14, 165, 233, 0.3), transparent 30%),
-    linear-gradient(145deg, #07132e, #173b91 55%, #312e81);
+    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.58), transparent 28%),
+    radial-gradient(circle at 15% 85%, rgba(99, 91, 255, 0.35), transparent 30%),
+    linear-gradient(145deg, #11122b, #29245f 55%, #5b3fd6);
 }
 
 .portal-entry__visual::before,
@@ -56,8 +116,8 @@
   place-items: center;
   border-radius: 15px;
   color: white;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  box-shadow: 0 14px 35px rgba(37, 99, 235, 0.3);
+  background: linear-gradient(135deg, var(--subul-primary), var(--subul-secondary));
+  box-shadow: 0 14px 35px rgba(99, 91, 255, 0.3);
   font-weight: 900;
 }
 
@@ -86,7 +146,7 @@
 
 .portal-kicker {
   display: inline-block;
-  color: #60a5fa;
+  color: #a99fff;
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.14em;
@@ -203,8 +263,8 @@
 }
 
 .portal-login-card input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  border-color: var(--subul-primary);
+  box-shadow: 0 0 0 4px rgba(99, 91, 255, 0.1);
 }
 
 .portal-primary,
