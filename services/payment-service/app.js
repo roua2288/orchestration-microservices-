@@ -5,6 +5,27 @@ import crypto from "crypto";
 const { Pool } = pg;
 
 const app = express();
+const servicePrefix = "/payments";
+
+app.use((req, res, next) => {
+  const matchesPrefix =
+    req.url === servicePrefix ||
+    req.url.startsWith(servicePrefix + "/") ||
+    req.url.startsWith(servicePrefix + "?");
+
+  if (matchesPrefix) {
+    const rewrittenUrl = req.url.slice(servicePrefix.length);
+
+    req.url =
+      rewrittenUrl === ""
+        ? "/"
+        : rewrittenUrl.startsWith("?")
+          ? "/" + rewrittenUrl
+          : rewrittenUrl;
+  }
+
+  next();
+});
 const port = Number(process.env.PORT || 3004);
 
 const orderServiceUrl =
