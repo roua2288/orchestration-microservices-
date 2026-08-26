@@ -362,7 +362,7 @@ order-service:
   image:
     repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/order-service"
     pullPolicy: IfNotPresent
-    tag: "f8d733842d66b86d13460d0ff36e4b606e869184"
+    tag: "931f889e5c73f481a00cc0b091105c95b613f621"
   # Service Kubernetes
   service:
     type: ClusterIP
@@ -440,7 +440,7 @@ payment-service:
   image:
     repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/payment-service"
     pullPolicy: IfNotPresent
-    tag: "f8d733842d66b86d13460d0ff36e4b606e869184"
+    tag: "931f889e5c73f481a00cc0b091105c95b613f621"
   # Service Kubernetes
   service:
     type: ClusterIP
@@ -518,7 +518,7 @@ notification-service:
   image:
     repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/notification-service"
     pullPolicy: IfNotPresent
-    tag: "f8d733842d66b86d13460d0ff36e4b606e869184"
+    tag: "931f889e5c73f481a00cc0b091105c95b613f621"
   # Service Kubernetes
   service:
     type: ClusterIP
