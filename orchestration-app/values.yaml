@@ -37,7 +37,7 @@ frontend:
   image:
     repository: "136609826386.dkr.ecr.eu-west-3.amazonaws.com/frontend"
     pullPolicy: IfNotPresent
-    tag: "d981ffa45971018367de5faf3404704b15e8a555"
+    tag: "0811176ea6cd8cffd29e11e6cbdcfbe30050e327"
   # Service Kubernetes
   service:
     type: ClusterIP
