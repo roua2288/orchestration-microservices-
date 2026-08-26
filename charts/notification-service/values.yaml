@@ -38,6 +38,8 @@ configMap:
     APP_ENV: "dev"
     AWS_REGION: "eu-west-3"
     LOG_LEVEL: "info"
+    SES_FROM_EMAIL: "rouabenamor228@gmail.com"
+    USER_SERVICE_URL: "http://orchestration-app-user-service"
 
 secret:
   enabled: false

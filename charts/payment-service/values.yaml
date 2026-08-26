@@ -38,6 +38,8 @@ configMap:
     APP_ENV: "dev"
     AWS_REGION: "eu-west-3"
     LOG_LEVEL: "info"
+    ORDER_SERVICE_URL: "http://orchestration-app-order-service"
+    NOTIFICATION_SERVICE_URL: "http://orchestration-app-notification-service"
 
 secret:
   enabled: false

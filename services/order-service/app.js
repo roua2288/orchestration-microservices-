@@ -31,6 +31,10 @@ const productServiceUrl =
   process.env.PRODUCT_SERVICE_URL ||
   "http://localhost:3002";
 
+const notificationServiceUrl =
+  process.env.NOTIFICATION_SERVICE_URL ||
+  "http://localhost:3005";
+
 const pool = new Pool({
   connectionString:
     process.env.DATABASE_URL ||
@@ -126,6 +130,22 @@ async function getFormation(productId) {
   }
 
   return formation;
+}
+
+async function notifyUser(payload) {
+  try {
+    const response = await fetch(notificationServiceUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      console.error("Notification refusée :", await response.text());
+    }
+  } catch (error) {
+    console.error("Notification indisponible :", error.message);
+  }
 }
 
 app.get("/health", async (req, res) => {
@@ -231,8 +251,17 @@ app.post("/", async (req, res, next) => {
       ]
     );
 
+    const createdOrder = result.rows[0];
+
+    await notifyUser({
+      user_id: createdOrder.user_id,
+      channel: "email",
+      subject: "Commande SUBUL enregistrée",
+      message: `Votre inscription à la formation ${formation.name} a été enregistrée. Référence : ${createdOrder.reference}. Montant : ${Number(createdOrder.total_amount).toFixed(2)} TND.`,
+    });
+
     res.status(201).json({
-      ...result.rows[0],
+      ...createdOrder,
       formation_name: formation.name,
     });
   } catch (error) {

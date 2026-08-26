@@ -49,6 +49,8 @@ configMap:
     PAYMENT_SERVICE_URL: "http://orchestration-app-payment-service"
     CONNECT_TIMEOUT: "2"
     READ_TIMEOUT: "3"
+    PRODUCT_SERVICE_URL: "http://orchestration-app-product-service"
+    NOTIFICATION_SERVICE_URL: "http://orchestration-app-notification-service"
 
 secret:
   enabled: false

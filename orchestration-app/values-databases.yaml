@@ -99,6 +99,7 @@ order-service:
       AWS_REGION: eu-west-3
       LOG_LEVEL: info
       PRODUCT_SERVICE_URL: http://orchestration-app-product-service
+      NOTIFICATION_SERVICE_URL: http://orchestration-app-notification-service
 
 payment-service:
   databaseSecretName: payments-db-credentials
@@ -110,6 +111,20 @@ payment-service:
       AWS_REGION: eu-west-3
       LOG_LEVEL: info
       ORDER_SERVICE_URL: http://orchestration-app-order-service
+      NOTIFICATION_SERVICE_URL: http://orchestration-app-notification-service
 
 notification-service:
   databaseSecretName: notifications-db-credentials
+  serviceAccount:
+    create: true
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::136609826386:role/SubulNotificationSesRole
+  configMap:
+    enabled: true
+    data:
+      APP_NAME: notification-service
+      APP_ENV: production
+      AWS_REGION: eu-west-3
+      LOG_LEVEL: info
+      SES_FROM_EMAIL: rouabenamor228@gmail.com
+      USER_SERVICE_URL: http://orchestration-app-user-service

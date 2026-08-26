@@ -32,6 +32,10 @@ const orderServiceUrl =
   process.env.ORDER_SERVICE_URL ||
   "http://localhost:3003";
 
+const notificationServiceUrl =
+  process.env.NOTIFICATION_SERVICE_URL ||
+  "http://localhost:3005";
+
 const pool = new Pool({
   connectionString:
     process.env.DATABASE_URL ||
@@ -126,6 +130,22 @@ async function getOrder(orderId) {
   }
 
   return order;
+}
+
+async function notifyUser(payload) {
+  try {
+    const response = await fetch(notificationServiceUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      console.error("Notification refusée :", await response.text());
+    }
+  } catch (error) {
+    console.error("Notification indisponible :", error.message);
+  }
 }
 
 app.get("/health", async (req, res) => {
@@ -223,8 +243,19 @@ app.post("/", async (req, res, next) => {
       ]
     );
 
+    const createdPayment = result.rows[0];
+
+    if (createdPayment.status === "completed") {
+      await notifyUser({
+        user_id: order.user_id,
+        channel: "email",
+        subject: "Paiement SUBUL confirmé",
+        message: `Votre paiement de ${Number(createdPayment.amount).toFixed(2)} TND pour la commande ${order.reference} a été confirmé. Transaction : ${createdPayment.transaction_reference}.`,
+      });
+    }
+
     res.status(201).json({
-      ...result.rows[0],
+      ...createdPayment,
       order_reference: order.reference,
     });
   } catch (error) {
