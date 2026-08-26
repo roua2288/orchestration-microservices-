@@ -27,7 +27,7 @@ dependencies:
     condition: product-service.enabled
 
   - name: order-service
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../charts/order-service"
     condition: order-service.enabled
 

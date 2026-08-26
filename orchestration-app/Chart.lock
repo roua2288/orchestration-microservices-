@@ -13,7 +13,7 @@ dependencies:
   version: 0.1.0
 - name: order-service
   repository: file://../charts/order-service
-  version: 0.1.0
+  version: 0.1.1
 - name: payment-service
   repository: file://../charts/payment-service
   version: 0.1.0
@@ -35,5 +35,5 @@ dependencies:
 - name: postgresql
   repository: file://../charts/postgresql
   version: 0.1.2
-digest: sha256:04365383a201a66e34f4afb361ba64f2fc2e939163724fd04afe3d65231d45bf
-generated: "2026-08-26T04:57:18.6052681+01:00"
+digest: sha256:d41e13d9d355007ecb13aff06eb025106538aa30e079758d3841f7dc725e2686
+generated: "2026-08-26T05:24:26.0476965+01:00"
